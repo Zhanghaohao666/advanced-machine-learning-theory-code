@@ -1,13 +1,12 @@
 # 基于强化学习与安全屏蔽的无人机动态环境自主导航方法研究
 
-本仓库为《高级机器学习理论》课程作业代码提交仓库，研究主题为“基于强化学习与安全屏蔽的无人机动态环境自主导航方法研究”。
+本仓库为《高级机器学习理论》课程项目代码仓库，研究主题为“基于强化学习与安全屏蔽的无人机动态环境自主导航方法研究”。
 
-当前提交版只保留了 `ROS1` 相关部署代码，并整理出两个直接可用的入口：
+仓库包含三部分核心内容：
 
-1. `quick-demos/`：基于预训练策略的简单演示
+1. `quick-demos/`：基于预训练策略的快速演示
 2. `isaac-training/`：基于 Isaac Sim 的强化学习训练代码
-
-同时保留 `ros1/` 作为完整的 ROS1/Gazebo 仿真部署版本，便于课程展示时运行完整导航流程。
+3. `ros1/`：基于 ROS1 与 Gazebo 的仿真部署代码
 
 ## 仓库结构说明
 
@@ -21,7 +20,7 @@
 └─ README.md
 ```
 
-如果你看到文件比较多，主要原因在于 `ros1/` 本身是一个完整的 ROS 工程，里面按功能拆成了多个 package：
+`ros1/` 为完整的 ROS 工程，按功能拆分为多个 package：
 
 - `ros1/uav_simulator/`：Gazebo 场景、模型、世界文件和无人机仿真
 - `ros1/navigation_runner/`：导航策略、安全屏蔽和运行入口
@@ -32,11 +31,11 @@
 
 ## 一、简单演示怎么运行
 
-简单演示使用 `quick-demos/` 下的预训练模型，不依赖 ROS，适合作为课程作业展示时的快速运行入口。
+简单演示使用 `quick-demos/` 下的预训练模型，不依赖 ROS，可直接用于快速查看导航效果。
 
 ## NavRL Quick Demos in 3 Minutes
 
-本仓库保留了原项目中的 quick demos 展示部分，用来说明预训练策略在不同场景下的演示效果。
+Quick demos 展示如下，用于说明预训练策略在不同场景下的导航效果。
 
 <table>
   <tr>
@@ -157,7 +156,7 @@ isaac-training/third_party/OmniDrones/scripts/train.yaml
 
 ### 4. 本项目训练配置说明
 
-当前仓库中我保留并说明的训练配置如下：
+本项目训练配置如下：
 
 - 任务选择：`task=SafeUAVNav`
 - 算法选择：`algo=ppo`
@@ -175,9 +174,9 @@ isaac-training/third_party/OmniDrones/scripts/train.yaml
 - 默认随机种子：`seed=0`
 - 默认总训练帧数：`total_frames=150_000_000`
 - 默认 `headless=false`
-- 默认 `wandb.mode=online`，课程作业本地训练时建议改成 `wandb.mode=disabled`
+- 默认 `wandb.mode=online`，本地训练时可改为 `wandb.mode=disabled`
 
-如果按这份课程作业仓库的推荐配置运行训练，建议直接使用：
+如果按推荐配置运行训练，建议直接使用：
 
 ```bash
 cd isaac-training/third_party/OmniDrones/scripts
@@ -192,7 +191,7 @@ python train.py task=SafeUAVNav algo=ppo headless=True env.num_envs=256 seed=0 t
 
 ## 三、ROS1 仿真版本怎么运行
 
-本仓库只保留 `ROS1` 版本，不包含 `ROS2` 代码。
+本项目提供基于 ROS1 和 Gazebo 的仿真部署流程。
 
 ### 环境要求
 
@@ -249,26 +248,6 @@ rosrun navigation_runner navigation_node.py
 
 ### ROS1 仿真展示视频
 
-下面保留原项目中的 ROS1 仿真展示视频资源，用于课程提交说明：
+ROS1 仿真演示视频如下：
 
 https://github.com/user-attachments/assets/b7cc7e2e-c01d-4e44-87e3-97271a3aaa0f
-
-## 四、课程作业对应关系
-
-这份代码提交对应的核心方法可以概括为：
-
-1. 强化学习策略负责输出名义导航动作
-2. 安全屏蔽模块在动作执行前进行约束修正
-3. 在动态障碍环境中兼顾目标到达与碰撞规避
-
-因此：
-
-- `quick-demos/` 适合用来做课程答辩时的快速演示
-- `isaac-training/` 适合说明训练流程和任务配置
-- `ros1/` 适合展示完整仿真部署链路
-
-## 五、补充说明
-
-- 本仓库当前提交版仅保留 `ROS1`
-- 为兼容 Windows 文件系统，`ros1/onboard_detector` 中一个权重文件名已做兼容性调整，代码引用已同步更新
-- 如果只需要进行课程验收展示，优先运行 `quick-demos/simple-navigation.py` 即可
