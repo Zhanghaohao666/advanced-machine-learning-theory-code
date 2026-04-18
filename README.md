@@ -9,8 +9,6 @@
 
 同时保留 `ros1/` 作为完整的 ROS1/Gazebo 仿真部署版本，便于课程展示时运行完整导航流程。
 
-![简单演示](media/simple-navigation.gif)
-
 ## 仓库结构说明
 
 ```text
@@ -18,7 +16,7 @@
 ├─ isaac-training/   # Isaac Sim 训练环境、任务配置和安装脚本
 ├─ quick-demos/      # 简单演示脚本、推理代码和预训练 checkpoint
 ├─ ros1/             # ROS1/Gazebo 仿真部署代码
-├─ media/            # 仓库内保留的简单演示 GIF
+├─ media/            # 仓库内保留的 quick demos 展示资源
 ├─ LICENSE
 └─ README.md
 ```
@@ -36,6 +34,18 @@
 
 简单演示使用 `quick-demos/` 下的预训练模型，不依赖 ROS，适合作为课程作业展示时的快速运行入口。
 
+## NavRL Quick Demos in 3 Minutes
+
+本仓库保留了原项目中的 quick demos 展示部分，用来说明预训练策略在不同场景下的演示效果。
+
+<table>
+  <tr>
+    <td><img src="media/simple-navigation.gif" style="width: 100%;"></td>
+    <td><img src="media/dynamic-navigation.gif" style="width: 100%;"></td>
+    <td><img src="media/multi-robot-navigation.gif" style="width: 100%;"></td>
+  </tr>
+</table>
+
 ### 环境建议
 
 - Ubuntu 20.04/22.04
@@ -50,14 +60,26 @@ bash setup_deployment.sh
 conda activate NavRL
 ```
 
-### 2. 运行简单演示
+### 2. 运行 quick demos
 
 ```bash
 cd ../quick-demos
+
+# DEMO I: 预设目标点导航
 python simple-navigation.py
+
+# DEMO II: 随机/动态目标点导航
+python random-navigation.py
+
+# DEMO III: 多机器人导航
+python multi-robot-navigation.py
 ```
 
-运行后会弹出可视化窗口，展示无人机在障碍环境中的目标点导航过程。
+三个脚本分别对应：
+
+- `simple-navigation.py`：导航到预设目标点
+- `random-navigation.py`：导航到动态生成的目标点
+- `multi-robot-navigation.py`：多机器人场景演示
 
 ### 3. 如果需要导出 GIF
 
@@ -121,6 +143,53 @@ python train.py task=SafeUAVNav algo=ppo headless=True wandb.mode=disabled env.n
 isaac-training/third_party/OmniDrones/cfg/task/SafeUAVNav.yaml
 ```
 
+算法配置位于：
+
+```text
+isaac-training/third_party/OmniDrones/cfg/algo/ppo.yaml
+```
+
+默认训练脚本配置位于：
+
+```text
+isaac-training/third_party/OmniDrones/scripts/train.yaml
+```
+
+### 4. 本项目训练配置说明
+
+当前仓库中我保留并说明的训练配置如下：
+
+- 任务选择：`task=SafeUAVNav`
+- 算法选择：`algo=ppo`
+- 并行环境数：`env.num_envs=256`
+- 单回合最大步数：`max_episode_length=500`
+- 无人机模型：`Firefly`
+- 观测展平：`ravel_obs=true`
+- 动作变换：`action_transform=null`
+- 奖励中的动作能耗权重：`reward_effort_weight=0.05`
+- 奖励中的动作平滑权重：`reward_action_smoothness_weight=0.02`
+- 距离奖励权重：`reward_distance_scale=1.0`
+- PPO `train_every=32`
+- PPO `ppo_epochs=4`
+- PPO `num_minibatches=16`
+- 默认随机种子：`seed=0`
+- 默认总训练帧数：`total_frames=150_000_000`
+- 默认 `headless=false`
+- 默认 `wandb.mode=online`，课程作业本地训练时建议改成 `wandb.mode=disabled`
+
+如果按这份课程作业仓库的推荐配置运行训练，建议直接使用：
+
+```bash
+cd isaac-training/third_party/OmniDrones/scripts
+python train.py task=SafeUAVNav algo=ppo env.num_envs=256 seed=0 total_frames=150000000 wandb.mode=disabled
+```
+
+如果希望不打开 Isaac Sim 窗口：
+
+```bash
+python train.py task=SafeUAVNav algo=ppo headless=True env.num_envs=256 seed=0 total_frames=150000000 wandb.mode=disabled
+```
+
 ## 三、ROS1 仿真版本怎么运行
 
 本仓库只保留 `ROS1` 版本，不包含 `ROS2` 代码。
@@ -177,6 +246,12 @@ rosrun navigation_runner navigation_node.py
 ```
 
 运行后可以在 RViz 中使用 `2D Nav Goal` 指定目标点，观察无人机在动态环境中的导航过程。
+
+### ROS1 仿真展示视频
+
+下面保留原项目中的 ROS1 仿真展示视频资源，用于课程提交说明：
+
+https://github.com/user-attachments/assets/b7cc7e2e-c01d-4e44-87e3-97271a3aaa0f
 
 ## 四、课程作业对应关系
 
