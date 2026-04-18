@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENV_NAME="${NAV_ENV_NAME:-aml_safe_nav}"
+ENV_NAME="${NAV_ENV_NAME:-NavRL}"
 TORCH_VERSION="${TORCH_VERSION:-2.1.0}"
 VISION_VERSION="${VISION_VERSION:-0.16.0}"
 AUDIO_VERSION="${AUDIO_VERSION:-2.1.0}"

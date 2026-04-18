@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENV_NAME="${NAV_ENV_NAME:-aml_safe_nav}"
+ENV_NAME="${NAV_ENV_NAME:-NavRL}"
 TORCHRL_VERSION="${TORCHRL_VERSION:-0.2.1}"
 TENSORDICT_VERSION="${TENSORDICT_VERSION:-0.2.1}"
 
@@ -55,7 +55,7 @@ python -c "from omni.isaac.kit import SimulationApp"
 pip install -e .
 
 echo "[5/5] Installing TorchRL/TensorDict..."
-# 原始压缩包缺失 third_party/tensordict 与 third_party/rl，因此这里改为安装公开 wheel。
+# 当前仓库默认通过 pip 安装 TorchRL/TensorDict，避免额外依赖未同步的源码目录。
 pip install --no-deps "tensordict==${TENSORDICT_VERSION}" "torchrl==${TORCHRL_VERSION}"
 
 python -c "import torch; print(torch.__version__)"
