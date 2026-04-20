@@ -46,7 +46,7 @@ goals = [np.array([x, 18.0]) for x in robot_xs]
 target_dirs = [goals[i] - robot_positions[i] for i in range(len(goals))]
 trajectories = [[p.copy()] for p in robot_positions]
 
-# === NavRL Agent ===
+# === zgh_done_trian Agent ===
 agent = Agent(device=device)
 
 # === Visualization setup ===
@@ -56,7 +56,7 @@ ax.set_facecolor('#fdf6e3')         # Slightly warm off-white axes background
 ax.set_xlim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_ylim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_aspect('equal')
-ax.set_title("Multi-Robot NavRL Simulation")
+ax.set_title("Multi-Robot zgh_done_trian Simulation")
 # ax.add_patch(Rectangle(
 #                     (-MAP_HALF_SIZE, OBSTACLE_REGION_MIN),
 #                     2 * MAP_HALF_SIZE,

@@ -2,7 +2,7 @@
 <package format="2">
   <name>navigation_runner</name>
   <version>1.0.0</version>
-  <description>The NavRL ROS1 package</description>
+  <description>The zgh_done_trian ROS1 package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

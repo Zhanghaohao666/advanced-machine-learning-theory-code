@@ -36,7 +36,7 @@ class Agent:
         policy = PPO(observation_spec, action_spec, self.device)
 
         file_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ckpts")
-        checkpoint = "navrl_checkpoint.pt"
+        checkpoint = "zgh_done_trian_checkpoint.pt"
 
         policy.load_state_dict(torch.load(os.path.join(file_dir, checkpoint), map_location=self.device))
         return policy

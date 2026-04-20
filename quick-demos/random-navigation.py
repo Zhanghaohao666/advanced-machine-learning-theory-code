@@ -45,7 +45,7 @@ start_pos = robot_pos.copy()
 target_dir = goal - robot_pos 
 trajectory = []
 
-# === NavRL Agent ===
+# === zgh_done_trian Agent ===
 agent = Agent(device=device)
 
 
@@ -56,7 +56,7 @@ ax.set_facecolor('#fdf6e3')         # Slightly warm off-white axes background
 ax.set_xlim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_ylim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_aspect('equal')
-ax.set_title("NavRL Dynamic Goal Navigation")
+ax.set_title("zgh_done_trian Dynamic Goal Navigation")
 # ax.add_patch(Rectangle((-MAP_HALF_SIZE, -MAP_HALF_SIZE),
 #                        2*MAP_HALF_SIZE,
 #                        2*MAP_HALF_SIZE,

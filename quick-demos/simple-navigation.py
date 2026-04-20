@@ -6,7 +6,7 @@ import numpy as np
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Simple NavRL goal-navigation demo.")
+    parser = argparse.ArgumentParser(description="Simple zgh_done_trian goal-navigation demo.")
     parser.add_argument("--save-gif", type=str, default=None, help="Optional output path for a demo GIF.")
     parser.add_argument("--frames", type=int, default=300, help="Number of simulation frames.")
     parser.add_argument("--interval", type=int, default=20, help="Animation interval in milliseconds.")
@@ -65,7 +65,7 @@ start_pos = robot_pos.copy()
 target_dir = goal - robot_pos 
 trajectory = []
 
-# === NavRL Agent ===
+# === zgh_done_trian Agent ===
 agent = Agent(device=device)
 
 
@@ -76,7 +76,7 @@ ax.set_facecolor('#fdf6e3')         # Slightly warm off-white axes background
 ax.set_xlim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_ylim(-MAP_HALF_SIZE, MAP_HALF_SIZE)
 ax.set_aspect('equal')
-ax.set_title("NavRL Goal Navigation")
+ax.set_title("zgh_done_trian Goal Navigation")
 # ax.add_patch(Rectangle(
 #                     (-MAP_HALF_SIZE, OBSTACLE_REGION_MIN),
 #                     2 * MAP_HALF_SIZE,
